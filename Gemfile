@@ -31,6 +31,10 @@ gem 'spring',        group: :development
 
 # Use unicorn as the app server
 # gem 'unicorn'
+group :unicorn do
+  gem "unicorn"
+  gem 'unicorn-worker-killer'
+end
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
