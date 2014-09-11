@@ -14,6 +14,7 @@
 #= require bootstrap-sprockets
 #= require jquery_ujs
 #= require jquery.bookblock
+#= require zeroclipboard
 #= require marked
 #= require turbolinks
 #
@@ -56,5 +57,6 @@ ready = ->
     #console.log(this)
     $this = $(this)
     $this.html(marked($this.data('content')))
+  new ZeroClipboard($('.js-zeroclipboard'))
 #$(document).ready(ready)
 $(document).on('page:update', ready)

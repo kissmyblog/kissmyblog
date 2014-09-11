@@ -4,12 +4,20 @@
       <div class="col-sm-8">
         <%= image_tag(@image.cdn_url, class: 'show-image') %>
       </div>
-      <aside class="col-sm-3">
+      <aside class="col-sm-3 image-properties">
         <h4><%= File.basename(@image.path) %></h4>
         <span class="property"><%= number_to_human_size @image.size %></span>
         <hr>
         <%= link_to "View full size", @image.cdn_url, class: 'btn btn-default btn-lg btn-block', target: '_blank' %>
         <hr>
+        <div class="input-group btn-block">
+          <%= text_field_tag nil, @image.path, class: 'form-control', readonly: 'readonly' %>
+          <span class="input-group-btn">
+            <%= button_tag(type: 'button', class: "btn btn-default js-zeroclipboard", 'aria-label' => "Copy to clipboard", data: { 'clipboard-text' => @image.path }) do %>
+              <%= icon('clipboard') %>
+            <% end %>
+          </span>
+        </div>
         <%= link_to "Upload a new version", edit_repository_image_path(@repository, @image), class: 'btn btn-primary btn-block' %>
         <%= link_to "Delete this image...", [@repository, @image], method: :delete, class: 'btn btn-danger btn-block', data: { confirm: "Are you sure?" } %>
       </aside>
