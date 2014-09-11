@@ -1,0 +1,57 @@
+<%= form_for([@repository, @post], html: { id: :post_form }) do |f| %>
+  <div class="navbar-default post-title affix">
+    <% options = { autocomplete: 'off', placeholder: 'Untitled' } %>
+    <% options[:autofocus] = 'autofocus' unless @post.persisted? %>
+    <%= text_field_tag "post[data][title]", @post.data['title'], options %>
+  </div>
+  <%= render 'layouts/toolbar' %>
+  <div class="bb-custom-wrapper">
+    <div class="bb-bookblock">
+      <div class="bb-item noscroll">
+        <% options = { class: 'md' } %>
+        <% options[:autofocus] = 'autofocus' if @post.persisted? %>
+        <%= text_area_tag 'post[content]', @post.content, options %>
+      </div>
+      <div class="bb-item">
+        <div class="panel">
+          <% @repository.post_metadata.each do |meta| %>
+            <% meta  = Meta.new(meta) %>
+            <% next if meta['name'] == 'title' %>
+            <% field = meta.sub('field') %>
+            <% value = @post.data[meta['name']] %>
+            <% if field['element'] == "hidden" %>
+              <%= hidden_field_tag "post[data][#{meta['name']}]", value || field['value'] %>
+            <% elsif field['element'] == 'checkbox' %>
+              <div class="checkbox">
+                <label>
+                  <%= hidden_field_tag "post[data][#{meta['name']}]", 0 %>
+                  <%= check_box_tag "post[data][#{meta['name']}]", 1, @post.data[meta['name']] %> <%= field['label'] %>
+                </label>
+              </div>
+            <% else %>
+              <div class="form-group">
+                <label for="post[data][<%= meta['name'] %>]"><%= field['label'] %></label>
+                <% case field['element'] %>
+                <% when 'text' %>
+                  <% if value.is_a?(Array) %>
+                    <%= text_field_tag "post[data][#{meta['name']}]", @post.data[meta['name']].join(', '), class: 'form-control' %>
+                  <% else %>
+                    <%= text_field_tag "post[data][#{meta['name']}]", @post.data[meta['name']], class: 'form-control' %>
+                  <% end %>
+                <% when 'textarea' %>
+                  <%= text_area_tag "post[data][#{meta['name']}]", @post.data[meta['name']], class: 'form-control' %>
+                <% when 'select' %>
+                  <%= select_tag "post[data][#{meta['name']}]", options_for_select(field['options'].collect {|p| [ p['name'], p['value'] ] }, @post.data[meta['name']]), class: 'form-control' %>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="form-group">
+            <label for="post[raw_data]">Raw Data</label>
+            <%= text_area_tag 'post[raw_data]', @post.raw_data, class: 'form-control yaml' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

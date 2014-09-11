@@ -1,0 +1,104 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require codemirror
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  padding-top: 51px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.CodeMirror {
+  height: 100%;
+  font-size: 14px;
+  line-height: 1.75em;
+}
+
+.CodeMirror-scroll {
+  //height: 100%;
+  //min-height: 100%;
+}
+
+.panel {
+  margin: auto;
+  max-width: 650px;
+  padding: 15px;
+  overflow: auto;
+}
+
+aside {
+  h5 {
+    text-align: center;
+  }
+  img {
+    max-width: 100%;
+  }
+  .property {
+    color: #777;
+  }
+}
+
+.panel-with-dropdown {
+  padding-bottom: 150px;
+}
+
+.bb-custom-wrapper {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.bb-custom-wrapper .bb-bookblock {
+	width: 100%;
+	height: 100%;
+	-webkit-perspective: 2000px;
+	-moz-perspective: 2000px;
+	perspective: 2000px;
+}
+
+.bb-item, .page {
+  height: 100%;
+  widht: 100%;
+  position: relative;
+  overflow: auto;
+}
+
+.page {
+  margin-top: 20px;
+}
+
+.page .container {
+  margin-bottom: 40px;
+}
+
+.bb-item.noscroll {
+  overflow: hidden;
+}

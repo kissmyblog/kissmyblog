@@ -1,0 +1,7 @@
+<%= form_for([@repository, @image]) do |f| %>
+  <%= f.file_field :content %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,98 @@
+# A proxy class to Repositories with some custom methods
+class GHRepository < GHProxy
+  attr_reader :config, :client
+
+  def initialize(client, target = nil)
+    @client = client
+    @target = target || @client.repositories.first
+  end
+
+  def to_param
+    id
+  end
+
+  def jekyll?
+    !config.blank?
+  end
+
+  def contents(path = '/')
+    @contents ||= {}
+    @contents[path] = @client.contents(id, path: path)
+  end
+
+  def config
+    @config_file ||= contents('/').map(&:path).include?('_config.yml')
+    if @config_file
+      @config ||= @client.contents(id, path: '/_config.yml')
+      SafeYAML.load(GHFile.new(@config).content)
+    else
+      false
+    end
+  end
+
+  def post_metadata
+    return false unless jekyll?
+    @post_metadata ||= config.try(:[], 'prose').try(:[], 'metadata').try(:[], '_posts')
+  end
+
+  def posts
+    @posts ||= contents('/_posts')
+  end
+
+  def drafts
+    @drafts ||= if contents('/').map(&:path).include?('_drafts')
+      contents('/_drafts')
+    else
+      []
+    end
+  end
+
+  def media_path
+    @media_path ||= config['prose'] && config['prose']['media']
+  end
+
+  def images
+    @images ||= contents(media_path) if media_path
+  end
+
+  def commits
+    @commits ||= @client.commits(full_name, 'master')
+  end
+
+  def last_commit
+    @last_commit ||= commits.first
+  end
+
+  def get_post(filename)
+    GHPost.new(contents(File.join('/_posts', File.basename(filename)))).tap do |p|
+      p.repository = self
+    end
+  end
+
+  def get_draft(filename)
+    GHDraft.new(contents(File.join('/_drafts', File.basename(filename)))).tap do |p|
+      p.repository = self
+    end
+  end
+
+  def get_image(filename)
+    # FIXME: Be nice with GitHub, don't load content!!
+    GHImage.new(images.find{|i| i.path == File.join(media_path, filename)}).tap do |i|
+      i.repository = self
+    end
+  end
+
+  def create_contents(path, message, content)
+    #TOOO: Check SHA and if content has changed before saving
+    client.create_contents(full_name, path, message, content)
+  end
+
+  def update_contents(path, message, sha, content)
+    #TOOO: Check SHA and if content has changed before saving
+    client.update_contents(full_name, path, message, sha, content)
+  end
+
+  def delete_contents(path, message, sha)
+    client.delete_contents(full_name, path, message, sha)
+  end
+end

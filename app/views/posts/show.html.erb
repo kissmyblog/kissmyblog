@@ -1,0 +1,28 @@
+<div class="page">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <h1><%= @post.data['title'] %></h1>
+        <%= content_tag('div', class: "marked", data: {content: @post.content}) do %>
+      </div>
+      <% end %>
+      <aside class="col-sm-3">
+        <h5>Want to make changes?</h5>
+        <% if @post.draft? %>
+          <%= link_to "Edit this draft", edit_repository_draft_path(@repository, @post), class: 'btn btn-default btn-lg btn-block' %>
+          <hr>
+          <%= link_to "Publish this draft", [@repository, @post], method: :delete, class: 'btn btn-primary btn-block', data: { confirm: "Are you sure?" } %>
+          <%= link_to "Delete this draft...", [@repository, @post], method: :delete, class: 'btn btn-danger btn-block', data: { confirm: "Are you sure?" } %>
+        <% else %>
+          <%= link_to "Edit this post", edit_repository_post_path(@repository, @post), class: 'btn btn-default btn-lg btn-block' %>
+          <hr>
+          <%= link_to "Delete this post...", [@repository, @post], method: :delete, class: 'btn btn-danger btn-block', data: { confirm: "Are you sure?" } %>
+        <% end %>
+        <% if @post.data['image'] %>
+          <hr>
+          <%= image_tag File.join('https://rawgit.com/', @repository.full_name, @repository.last_commit.sha, @post.data['image']) %>
+        <% end %>
+      </aside>
+    </div>
+  </div>
+</div>

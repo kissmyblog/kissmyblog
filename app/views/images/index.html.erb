@@ -1,0 +1,19 @@
+<div class="page">
+  <div class="container">
+
+    <h1>Images <small>(<%= @images.count %> images)</small><%= link_to 'Upload a new image', new_repository_image_path(@repository.id), class: 'btn btn-primary pull-right', role: 'button' %></h1>
+
+    <% @images.in_groups_of(4) do |image_group| %>
+    <div class="row">
+      <% image_group.compact.each do |image| %>
+      <div class="col-xs-6 col-md-3">
+        <%= link_to repository_image_path(@repository.id, image.name), class: 'thumbnail' do %>
+          <div class='bg-img' style="background-image: url(<%= File.join('https://rawgit.com/', @repository.full_name, @repository.last_commit.sha, image.path) %>)">
+          </div>
+        <% end %>
+      </div>
+      <% end%>
+    </div>
+    <% end %>
+  </div>
+</div>

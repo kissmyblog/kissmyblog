@@ -1,0 +1,26 @@
+.toolbar {
+  z-index: 100;
+  min-height: 50px;
+  top: 101px;
+  width: 100%;
+
+  a {
+    padding: 15px;
+    line-height: 20px;
+    display: block;
+    float: left;
+  }
+
+  a.active {
+    border-bottom: 3px solid #2a6496;
+    padding-bottom: 12px;
+  }
+
+  .format {
+    float: left;
+  }
+
+  .misc {
+    float: right;
+  }
+}

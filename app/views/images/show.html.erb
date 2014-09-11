@@ -1,0 +1,21 @@
+<div class="page">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <%= image_tag(@image.cdn_url, class: 'show-image') %>
+      </div>
+      <aside class="col-sm-3">
+        <h4><%= File.basename(@image.path) %></h4>
+        <span class="property"><%= number_to_human_size @image.size %></span>
+        <hr>
+        <%= link_to "View full size", @image.cdn_url, class: 'btn btn-default btn-lg btn-block', target: '_blank' %>
+        <hr>
+        <%= link_to "Upload a new version", edit_repository_image_path(@repository, @image), class: 'btn btn-primary btn-block' %>
+        <%= link_to "Delete this image...", [@repository, @image], method: :delete, class: 'btn btn-danger btn-block', data: { confirm: "Are you sure?" } %>
+      </aside>
+    </div>
+<%#= link_to 'Edit', edit_repository_post_path(@repository, @post) %>
+<%#= link_to 'Back', repository_posts_path(@repository) %>
+
+  </div>
+</div>
