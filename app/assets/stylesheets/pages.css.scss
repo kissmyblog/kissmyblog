@@ -1,0 +1,18 @@
+@import 'bootstrap/mixins';
+@import 'bootstrap/variables';
+@import 'bootstrap/carousel';
+
+// Render all elements more consistently
+@import 'pages/plugins/normalize';
+* { box-sizing: border-box; }
+
+// Base CSS
+@import 'pages/shared/typography';
+
+// Page Global Structure
+@import 'pages/layout/global-header';
+@import 'pages/layout/main';
+@import 'pages/layout/global-footer';
+
+// Sections
+@import 'pages/sections/showcase';

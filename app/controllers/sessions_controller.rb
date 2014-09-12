@@ -1,16 +1,16 @@
 class SessionsController < ApplicationController
   def create
     auth = request.env['omniauth.auth']
-    session[:github_user] = {
+    session[:user] = {
       'login' => auth['info']['nickname'],
-      'name'  => auth['info']['name'],
-      'token' => auth['credentials']['token']
+      'image' => auth['info']['image'],
+      'github_token' => auth['credentials']['token']
     }
-    redirect_to root_path
+    redirect_to repositories_path
   end
 
   def destroy
-    session['github_user'] = nil
+    session['user'] = nil
     redirect_to root_url, notice: 'Logged out!'
   end
 

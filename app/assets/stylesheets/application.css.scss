@@ -11,7 +11,11 @@
  * file per style scope.
  *
  *= require codemirror
- *= require_tree .
+ *= require bookblock
+ *= require images
+ *= require notifications
+ *= require posts
+ *= require toolbar
  *= require_self
  */
 

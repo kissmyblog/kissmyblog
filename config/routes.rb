@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  root 'pages#home'
+
   get '/auth/github', as: 'login'
   get '/auth/:provider/callback', to: 'sessions#create'
-  get 'logout' => 'sessions#destroy', as: 'logout'
-  
-  root 'repositories#index'
+  match '/logout', to: 'sessions#destroy', via: [:get, :delete], as: 'logout'
+
   resources :repositories do
     resources :posts, id: /[-_a-zA-Z0-9]+\.[-_a-zA-Z0-9]+/
     resources :drafts, id: /[-_a-zA-Z0-9]+\.[-_a-zA-Z0-9]+/

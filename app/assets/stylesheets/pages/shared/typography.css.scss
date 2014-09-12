@@ -1,0 +1,29 @@
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  //-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+  -webkit-text-size-adjust: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-weight: bold;
+}
+
+h1 { font-size: 1.6em; }  // 22px
+h2 { font-size: 1.5em }   // 20px
+h3 { font-size: 1.3em }   // 18px
+h4 { font-size: 1.08em }  // 16px
+h5 { font-size: 1em }     // 14px
+h6 { font-size: 0.67em }  // 12px
+
+a {
+  color: #0882f0;
+  text-decoration: none;
+}
