@@ -32,7 +32,7 @@ class GHRepository < GHProxy
 
   def post_metadata
     return false unless jekyll?
-    @post_metadata ||= config.try(:[], 'prose').try(:[], 'metadata').try(:[], '_posts')
+    @post_metadata ||= config.try(:[], 'prose').try(:[], 'metadata').try(:[], '_posts') || []
   end
 
   def posts
