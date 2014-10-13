@@ -8,38 +8,41 @@
   <title>KISS my BLOG</title>
 </head>
 <body>
-  <header class="global-header">
+  <header class="site-header">
     <nav class="nav" role="navigation">
       <div class="container">
+        <button class="nav-toggle" data-toggle="collapse" data-target="#sidebar"><span class="sr-only">Toggle navigation</span></button>
         <h1 class="nav-brand"><a href="#">KISS my BLOG</a></h1>
-        <ul class="nav-right">
-          <li>
-            <a href="http://github.com/goodtouch/KISS my BLOG" class="nav-link">View it on GitHub</a>
-          </li>
-          <% if signed_in? %>
+        <div id="sidebar" class="collapse nav-collapse">
+          <ul class="nav-right">
             <li>
-              <%= link_to repositories_path do %>
-                <%= image_tag(current_user['image'], class: 'avimg') %><%= current_user['login'] %>
-              <% end %>
+              <a href="http://github.com/goodtouch/KISS my BLOG" class="nav-link">View it on GitHub</a>
             </li>
-            <li>
-              <%= link_to "Sign out" , logout_path, method: :delete %>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to "Sign in with GitHub", login_path, class: 'button' %>
-            </li>
-          <% end %>
-        </ul>
+            <% if signed_in? %>
+              <li>
+                <%= link_to repositories_path do %>
+                  <%= image_tag(current_user['image'], class: 'avimg') %><%= current_user['login'] %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to "Sign out" , logout_path, method: :delete %>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to "Sign in with GitHub", login_path, class: 'button' %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </nav>
   </header>
 
-  <div class="main global-footer-spaceholder">
+  <div class="main">
     <%= yield %>
   </div>
 
-  <footer class="global-footer">
+  <footer class="site-footer">
     <div class="container credits">
       <p><span class="brand">KISS my BLOG</span> was lovingly crafted by <a href="http://www.twitter.com/_jpb">Jean-Paul Bonnetouche</a></p>
     </div>

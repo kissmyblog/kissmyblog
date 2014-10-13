@@ -1,10 +1,11 @@
-.global-header {
-  $gh-height: 46px;
+.site-header {
+  $sh-height: 48px;
+  $sh-padding: 20px;
 
   h1, ul {
     margin: 0;
     > li { list-style: none; }
-    @media screen and (max-width:550px) {
+    @media screen and (max-width: $grid-float-breakpoint) {
       float:none !important;
       text-align: center;
       > li { margin:0; width: 100%; }
@@ -14,14 +15,14 @@
   .nav {
     @include clearfix;
     font-size: 13px;
-    min-height: $gh-height;
+    min-height: $sh-height;
     background: #fff;
     border-bottom: 1px solid #ddd;
   }
 
   a {
     font-weight: bold;
-    height: $gh-height;
+    height: $sh-height;
     display: block;
     color: #000;
     &:hover { color: #4183c4; }
@@ -34,14 +35,14 @@
 
   .container {
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 $sh-padding;
   }
 
   .nav-brand {
     float: left;
     font-weight: normal;
     //font-size: 18px;
-    line-height: $gh-height;
+    line-height: $sh-height;
     letter-spacing: 5px;
 
     a { color: #333; }
@@ -50,7 +51,7 @@
 
   .nav-left {
     float: left;
-    line-height: $gh-height;
+    line-height: $sh-height;
 
     // Left list
     > li {
@@ -63,9 +64,67 @@
     }
   }
 
+  .nav-toggle {
+    position: relative;
+    float: right;
+    width: $sh-height;
+    height: $sh-height;
+    margin-right: -$sh-padding;
+    line-height: $sh-height;
+    text-indent: -9999px;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background: url(image_path("hamburger.svg")) center center no-repeat;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    user-select: none;
+
+    &:focus {
+      outline: 0;
+    }
+
+    @media (min-width: $grid-float-breakpoint) {
+      display: none;
+    }
+  }
+
+  .nav-collapse {
+    overflow-x: visible;
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+    @include clearfix();
+    -webkit-overflow-scrolling: touch;
+
+    &.in {
+      overflow-y: auto;
+    }
+
+    @media (min-width: $grid-float-breakpoint) {
+      width: auto;
+      border-top: 0;
+      box-shadow: none;
+
+      &.collapse {
+        display: block !important;
+        height: auto !important;
+        padding-bottom: 0; // Override default setting
+        overflow: visible !important;
+      }
+
+      &.in {
+        overflow-y: visible;
+      }
+    }
+  }
+
   .nav-right {
     float: right;
-    line-height: $gh-height;
+    line-height: $sh-height;
     padding: 0;
 
     // Right list
@@ -89,7 +148,7 @@
 
     .avatar {
       $size: 30px;
-      $margin: ($gh-height - $size)/2;
+      $margin: ($sh-height - $size)/2;
       font-size: 16px;
 
       a {
@@ -124,7 +183,7 @@
     color: #000;
     height: $height;
     border: $border-width solid #d5d5d5;
-    margin: (($gh-height - $height)/2 - $border-width*2) 0;
+    margin: (($sh-height - $height)/2 - $border-width*2) 0;
     padding: $padding-top 12px;
     line-height: $height - $padding-top*2 - $border-width*2 ;
     border-radius: 3px;

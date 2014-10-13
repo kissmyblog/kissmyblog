@@ -10,9 +10,12 @@
 @import 'pages/shared/typography';
 
 // Page Global Structure
-@import 'pages/layout/global-header';
+@import 'pages/layout/site-header';
 @import 'pages/layout/main';
-@import 'pages/layout/global-footer';
+@import 'pages/layout/site-footer';
+
+// Components
+@import 'pages/components/component_animations';
 
 // Sections
 @import 'pages/sections/showcase';
