@@ -1,0 +1,27 @@
+# Copy this lib/support/init.d/kissmyblog.default.example file to
+# /etc/default/kissmyblog in order for it to apply to your system.
+
+# RAILS_ENV defines the type of installation that is running.
+# Normal values are "production", "test" and "development".
+RAILS_ENV="production"
+
+# app_user defines the user that KISS my BLOG is run as.
+# The default is "kissmyblog".
+app_user="kissmyblog"
+
+# app_root defines the folder in which kissmyblog and it's components are installed.
+# The default is "/home/$app_user/kissmyblog"
+app_root="/home/$app_user/kissmyblog"
+
+# pid_path defines a folder in which the kissmyblog and it's components place their pids.
+# This variable is also used below to define the relevant pids for the kissmyblog components.
+# The default is "$app_root/tmp/pids"
+pid_path="$app_root/tmp/pids"
+
+# socket_path defines the folder in which kissmyblog places the sockets
+#The default is "$app_root/tmp/sockets"
+socket_path="$app_root/tmp/sockets"
+
+# web_server_pid_path defines the path in which to create the pid file fo the web_server
+# The default is "$pid_path/unicorn.pid"
+web_server_pid_path="$pid_path/unicorn.pid"
