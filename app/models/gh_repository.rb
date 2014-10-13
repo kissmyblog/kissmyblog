@@ -95,4 +95,34 @@ class GHRepository < GHProxy
   def delete_contents(path, message, sha)
     client.delete_contents(full_name, path, message, sha)
   end
+
+  def move_contents(path, new_path, message)
+    tree = client.tree(full_name, last_commit.sha, recursive: true)
+    file = tree.tree.find{|n| n.path == path}
+
+    if file
+      # We'll need to create a new directory tree without the moved file
+      tree_to_update = tree.tree.find{|n| n.path == File.dirname(path)}
+
+      file.path = new_path
+
+      # Get all the remaining files in the directory
+      content_for_update = []
+      tree.tree.delete_if do |n|
+        if n.path =~ Regexp.new("#{File.dirname(path)}\/[^\/]*")
+          n.path = File.basename(n.path)
+          content_for_update << n
+          true
+        end
+      end
+
+      # Create a tree with the remaining files and update the old directory sha to point to the new tree
+      new_tree = client.create_tree(full_name, content_for_update)
+      tree_to_update.sha = new_tree.sha
+
+      full_tree = client.create_tree(full_name, tree.tree)
+      commit    = client.create_commit(full_name, message, full_tree.sha, last_commit.sha)
+      client.update_branch(full_name, 'master', commit.sha)
+    end
+  end
 end

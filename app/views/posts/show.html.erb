@@ -11,7 +11,7 @@
         <% if @post.draft? %>
           <%= link_to "Edit this draft", edit_repository_draft_path(@repository, @post), class: 'btn btn-default btn-lg btn-block' %>
           <hr>
-          <%= link_to "Publish this draft", [@repository, @post], method: :delete, class: 'btn btn-primary btn-block', data: { confirm: "Are you sure?" } %>
+          <%= link_to "Publish this draft", publish_repository_draft_path(@repository, @post), method: :post, class: 'btn btn-primary btn-block', data: { disable_with: "Publishing..."} %>
           <%= link_to "Delete this draft...", [@repository, @post], method: :delete, class: 'btn btn-danger btn-block', data: { confirm: "Are you sure?" } %>
         <% else %>
           <%= link_to "Edit this post", edit_repository_post_path(@repository, @post), class: 'btn btn-default btn-lg btn-block' %>

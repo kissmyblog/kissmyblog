@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   resources :repositories do
     resources :posts, id: /[-_a-zA-Z0-9]+\.[-_a-zA-Z0-9]+/
-    resources :drafts, id: /[-_a-zA-Z0-9]+\.[-_a-zA-Z0-9]+/
+    resources :drafts, id: /[-_a-zA-Z0-9]+\.[-_a-zA-Z0-9]+/ do
+      member do
+        post 'publish'
+      end
+    end
     resources :images, :id => /[^\/]+/
   end
 

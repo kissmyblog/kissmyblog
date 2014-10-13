@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_repository
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :publish, :destroy]
 
   def index
     @posts = @repository.posts.reverse
@@ -43,6 +43,11 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     redirect_to repository_posts_path(@repository.id), notice: "#{@post.draft? ? 'Draft': 'Post'} was successfully deleted."
+  end
+
+  def publish
+    @post.publish
+    redirect_to repository_post_path(@repository, @post), notice: 'Draft was successfully published.'
   end
 
   private
