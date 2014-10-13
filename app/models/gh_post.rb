@@ -24,6 +24,13 @@ class GHPost < GHFile
     "#{data.to_yaml}---\n#{content}"
   end
 
+  # ie:
+  # - name: excerpt # => meta
+  #   field:        # => field
+  #     element: textarea
+  #     label: Excerpt
+  #     value: ""
+  #     remove_if_blank: true
   def update(attributes)
     # FIXME: Check if name changed to rename instead of update
     tap do |p|
@@ -34,6 +41,9 @@ class GHPost < GHFile
         field = meta.sub('field')
         if field['element'] == "checkbox"
           p.data[meta['name']] = p.data[meta['name']] == '1' ? true : false
+        end
+        if field['remove_if_blank'] == true && p.data[meta['name']].blank?
+          p.data.delete(meta['name'])
         end
       end
     end
