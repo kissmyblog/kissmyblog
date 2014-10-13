@@ -36,6 +36,8 @@ GEM
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     builder (3.2.2)
+    canonical-rails (0.0.7)
+      rails (>= 3.1, < 5.0)
     codemirror-rails (4.5)
       railties (>= 3.0, < 5)
     coffee-rails (4.0.1)
@@ -167,6 +169,7 @@ DEPENDENCIES
   active_link_to
   autoprefixer-rails
   bootstrap-sass (~> 3.2.0)
+  canonical-rails (~> 0.0.7)
   codemirror-rails
   coffee-rails (~> 4.0.0)
   font-awesome-sass (~> 4.2.0)

@@ -42,6 +42,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'canonical-rails', '~> 0.0.7'
 gem 'safe_yaml'
 gem 'modernizr-rails'
 gem 'octokit', '~> 3.0'
