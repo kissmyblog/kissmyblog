@@ -33,9 +33,10 @@ class GHRepository < GHProxy
   def config?
     @config_file ||= contents('/').map(&:path).include?('_config.yml')
   end
+
   def post_metadata
     return false unless jekyll?
-    @post_metadata ||= config.try(:[], 'prose').try(:[], 'metadata').try(:[], '_posts') || []
+    @post_metadata ||= (config.try(:[], 'kissmyblog') || config.try(:[], 'prose')).try(:[], 'metadata').try(:[], '_posts') || []
   end
 
   def posts
@@ -51,7 +52,7 @@ class GHRepository < GHProxy
   end
 
   def media_path
-    @media_path ||= config['prose'] && config['prose']['media']
+    @media_path ||= (c = (config['kissmyblog'] || config['prose']) && c['media'])
   end
 
   def images
