@@ -30,6 +30,9 @@ class GHRepository < GHProxy
     end
   end
 
+  def config?
+    @config_file ||= contents('/').map(&:path).include?('_config.yml')
+  end
   def post_metadata
     return false unless jekyll?
     @post_metadata ||= config.try(:[], 'prose').try(:[], 'metadata').try(:[], '_posts') || []

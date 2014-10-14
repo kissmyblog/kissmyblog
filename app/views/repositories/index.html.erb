@@ -1,27 +1,95 @@
 <div class="page">
   <div class="panel">
-    <h1>Repositories</h1>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th colspan="2"></th>
-        </tr>
-      </thead>
+    <% if !@main_blog.empty? %>
+      <h1>Your Blog</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th colspan="4"></th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <% @repositories.each do |repository| %>
-          <%# if repository.jekyll? %>
-            <tr>
-              <td><%= repository.name %></td>
-              <td><%= link_to "Posts", repository_posts_path(repository.id) %></td>
-              <td><%= link_to "Images", repository_images_path(repository.id) %></td>
-            </tr>
-          <%# end %>
-        <% end %>
-      </tbody>
-    </table>
-    <br>
+        <tbody>
+          <% @main_blog.each do |repository| %>
+            <%# if repository.jekyll? %>
+              <tr>
+                <td><%= repository.name %></td>
+                <td><%= link_to "Posts", repository_posts_path(repository.id) %></td>
+                <td><%= link_to "Images", repository_images_path(repository.id) %></td>
+                <% if repository.config? %>
+                  <td><%= link_to icon('list-alt'), repository.contents('_config.yml').html_url, target: "_blank" %></td>
+                <% else %>
+                  <td>No config file</td>
+                <% end %>
+                <td><%= link_to icon('eye'), "http://#{repository.name}", target: "_blank" %></td>
+              </tr>
+            <%# end %>
+          <% end %>
+        </tbody>
+      </table>
+      <br>
+    <% else %>
+      <article class="blank_slate repositories">
+        <h1>Welcome!</h1>
+        <p>
+          You don't have any personal blog setup on GitHub yet! But don't worry, we can create one for you!
+        </p>
+        <%= link_to "Ok, create my blog on GitHub now!", fork_repositories_path, class: "btn btn-primary btn-block", method: :post, data: {
+          disable_with: "We are creating a nice Jekyll blog for you ! ... (this might take some time)"
+        } %>
+      </article>
+    <% end %>
+
+    <% if !@forked_user_blogs.empty? %>
+      <h1>Forked Blogs</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @forked_user_blogs.each do |repository| %>
+            <%# if repository.jekyll? %>
+              <tr>
+                <td><%= repository.name %></td>
+                <td><%= link_to "Posts", repository_posts_path(repository.id) %></td>
+                <td><%= link_to "Images", repository_images_path(repository.id) %></td>
+              </tr>
+            <%# end %>
+          <% end %>
+        </tbody>
+      </table>
+      <br>
+    <% end %>
+
+    <% if false # FIXME: Check gh-pages branches for thoses %>
+      <h1>Other Repositories</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @unknown_repositories.each do |repository| %>
+            <%# if repository.jekyll? %>
+              <tr>
+                <td><%= repository.name %></td>
+                <td><%= link_to "Posts", repository_posts_path(repository.id) %></td>
+                <td><%= link_to "Images", repository_images_path(repository.id) %></td>
+              </tr>
+            <%# end %>
+          <% end %>
+        </tbody>
+      </table>
+      <br>
+    <% end %>
   </div>
 </div>

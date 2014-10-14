@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   match '/logout', to: 'sessions#destroy', via: [:get, :delete], as: 'logout'
 
   resources :repositories do
-    resources :posts, id: /[-_a-zA-Z0-9]+\.[-_a-zA-Z0-9]+/
-    resources :drafts, id: /[-_a-zA-Z0-9]+\.[-_a-zA-Z0-9]+/ do
+    post :fork, on: :collection
+    resources :posts, id: /[-_a-zA-Z0-9]+\.[-_a-zA-Z0-9]+[.-_a-zA-Z0-9]*/
+    resources :drafts, id: /[-_a-zA-Z0-9]+\.[-_a-zA-Z0-9]+[.-_a-zA-Z0-9]*/ do
       member do
         post 'publish'
       end
