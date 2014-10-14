@@ -17,7 +17,7 @@ cd ~/kissmyblog
 # git stash
 
 # change branch to
-git pull origin master
+git fetch --all && git checkout master && git reset origin/master --hard
 
 echo 'Deploy: Bundle & Compile assets'
 
