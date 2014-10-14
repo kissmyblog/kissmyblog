@@ -26,7 +26,6 @@ bundle --without development test --deployment
 
 bundle exec rake assets:clean RAILS_ENV=production
 bundle exec rake assets:precompile RAILS_ENV=production
-bundle exec rake cache:clear RAILS_ENV=production
 
 # return stashed changes (if necessary)
 # git stash pop
