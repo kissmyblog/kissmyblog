@@ -52,7 +52,7 @@ class GHRepository < GHProxy
   end
 
   def media_path
-    @media_path ||= (c = (config['kissmyblog'] || config['prose']) && c['media'])
+    @media_path ||= (config.try(:[], 'kissmyblog') || config.try(:[], 'prose')).try(:[], 'media') || 'assets/img'
   end
 
   def images
